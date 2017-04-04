@@ -1,0 +1,9 @@
+version: "2"
+services:
+
+  npm_test:
+    image: node
+    volumes:
+      - ./:/code
+    working_dir: /code
+    command: bash -c "npm install && npm test"
