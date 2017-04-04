@@ -7,7 +7,6 @@ var MONGO_DB = process.env.MONGODB || 'testDb';
 
 var getMongoConnection = function (callback) {
     var url = "mongodb://" + MONGO_HOST + ":" + MONGO_PORT + "/" + MONGO_DB;
-    console.log(url, [MONGO_HOST, MONGO_HOST, MONGO_DB]);
     MongoClient.connect(url, function (err, db) {
         if (err) {
             console.log('err[connect]', err);
