@@ -1,7 +1,7 @@
 version: "2"
 services:
 
-  mongodb:
+  mongo:
     image: mongo
     volumes:
       - ./data/mongo:/data/db
@@ -9,9 +9,9 @@ services:
   npm_test:
     image: node
     links:
-      - mongodb
+      - mongo
     environment:
-      - MONGO_HOST=mongodb
+      - MONGO_HOST=mongo
     volumes:
       - ./:/code
     working_dir: /code
