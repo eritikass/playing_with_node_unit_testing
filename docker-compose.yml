@@ -10,8 +10,6 @@ services:
     image: node
     links:
       - mongo
-    environment:
-      - MONGO_HOST=mongo
     volumes:
       - ./:/code
     working_dir: /code

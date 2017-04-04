@@ -1,12 +1,12 @@
 var MongoClient = require('mongodb').MongoClient;
 
-var MONGO_HOST = process.env.MONGO_HOST || 'mongo';
+var MONGO_HOSTNAME = process.env.MONGO_HOSTNAME || 'mongo';
 var MONGO_PORT = process.env.MONGO_PORT || 27017;
 var MONGO_DB = process.env.MONGO_DB || 'testDb';
 
 var getMongoConnection = function (callback) {
-    var url = "mongodb://" + MONGO_HOST + ":" + MONGO_PORT + "/" + MONGO_DB;
-    console.log(url, [MONGO_HOST, MONGO_PORT, MONGO_DB]);
+    var url = "mongodb://" + MONGO_HOSTNAME + ":" + MONGO_PORT + "/" + MONGO_DB;
+    console.log(url, [MONGO_HOSTNAME, MONGO_PORT, MONGO_DB]);
     MongoClient.connect(url, function (err, db) {
         if (err) {
             console.log('err[connect]', err);
