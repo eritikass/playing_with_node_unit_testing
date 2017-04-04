@@ -24,9 +24,12 @@ describe('Mongo', function() {
     var value_sum = value_init + value_inc;
 
     it('try mongo $inc update operator to sum numbers (' + value_init + '+' + value_inc + '=' + value_sum + ')', function(done) {
+        console.log('xxxxx');
         mongo.increaseValue(value_init, value_inc, function(err, value_summed) {
+            console.log('yyyyy');
             assert.ifError(err, 'mongo stuff failed');
             assert.equal(value_sum, value_summed, "error in mongo math");
+            console.log('#' + value_init + '+' + value_inc + '=' + value_summed);
             done();
         });
     });
