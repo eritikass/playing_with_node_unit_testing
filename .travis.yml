@@ -6,7 +6,7 @@ services:
   - mongodb
 
 env:
-- MONGO_HOSTNAME=127.0.0.1
+- MONGOHOST=127.0.0.1
 
 install:
   - npm install
