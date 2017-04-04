@@ -4,15 +4,23 @@ var MONGO_HOST = process.env.MONGO_HOST || 'mongo';
 var MONGO_PORT = process.env.MONGO_PORT || 27017;
 var MONGO_DB = process.env.MONGO_DB || 'testDb';
 
-exports.writeAndRead = function(write, callback) {
-
+var getMongoConnection = function (callback) {
     // Connect to the db
-    MongoClient.connect("mongodb://" + MONGO_HOST + ":" + MONGO_PORT + "/" + MONGO_DB, function(err, db) {
-        if(err) {
+    MongoClient.connect("mongodb://" + MONGO_HOST + ":" + MONGO_PORT + "/" + MONGO_DB, function (err, db) {
+        if (err) {
             console.log('err[connect]', err);
             callback('mongo connect error');
             return;
         }
+
+        callback(err, db);
+    });
+}
+
+exports.writeAndRead = function (write, callback) {
+
+    // Connect to the db
+    getMongoConnection(function (err, db) {
 
         var insert = {
             'data': 'cat',
@@ -21,9 +29,9 @@ exports.writeAndRead = function(write, callback) {
             'testdata': write
         };
 
-        var collection =  db.collection('restttxy');
+        var collection = db.collection('restttxy');
 
-        collection.insertOne(insert, function(err, result) {
+        collection.insertOne(insert, function (err, result) {
             if (err) {
                 console.log('err[insertOne]', err);
                 callback('mongo insertOne error');
@@ -32,7 +40,7 @@ exports.writeAndRead = function(write, callback) {
 
             //console.log('result', result.insertedId);
 
-            collection.findOne({'_id': result.insertedId}, function(err, item) {
+            collection.findOne({'_id': result.insertedId}, function (err, item) {
                 if (err) {
                     console.log('err[findOne]', err);
                     callback('mongo findOne error');
@@ -48,4 +56,48 @@ exports.writeAndRead = function(write, callback) {
 
     });
 
+}
+
+exports.increaseValue = function (value, increase, callback) {
+
+    // Connect to the db
+    getMongoConnection(function (err, db) {
+
+        var collection = db.collection('restttxy');
+
+        collection.insertOne({
+            'value': value,
+        }, function (err, result) {
+            if (err) {
+                console.log('err[insertOne]', err);
+                callback('mongo insertOne error');
+                return;
+            }
+
+            collection.update(
+                {'_id': result.insertedId},
+                {$inc: {"value": increase}}
+                , function (err, item) {
+                    if (err) {
+                        console.log('err[update]', err);
+                        callback('mongo update error');
+                        return;
+                    }
+
+
+                    collection.findOne({'_id': result.insertedId}, function (err, item) {
+                        if (err) {
+                            console.log('err[findOne]', err);
+                            callback('mongo findOne error');
+                            return;
+                        }
+                        //console.log('item', item);
+
+                        callback(null, item.value);
+                    });
+
+                });
+        });
+
+    });
 }

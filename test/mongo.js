@@ -18,4 +18,16 @@ describe('Mongo', function() {
         });
 
     });
+
+    var value_init = faker.random.number({min:5, max:10});
+    var value_inc = faker.random.number({min:5, max:10});
+    var value_sum = value_init + value_inc;
+
+    it('try mongo $inc update operator to sum numbers (' + value_init + '+' + value_inc + '=' + value_sum + ')', function(done) {
+        mongo.increaseValue(value_init, value_inc, function(err, value_summed) {
+            assert.ifError(err, 'mongo stuff failed');
+            assert.equal(value_sum, value_summed, "error in mongo math");
+            done();
+        });
+    });
 });
