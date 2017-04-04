@@ -7,12 +7,15 @@ cache:
   key: "$CI_BUILD_REF_NAME"
   paths:
   - node_modules/
+  - cached_package.json
 
 npm:install:
   stage: prepare
   image: node
   script:
+  - test package.json -ot cached_package.json && test -d node_modules && exit 0
   - npm install
+  - cp package.json cached_package.json
 
 npm:test:
   stage: test
