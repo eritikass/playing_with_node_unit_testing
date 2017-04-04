@@ -21,7 +21,7 @@ describe('urldata.parseArticleUrl', function() {
     }
 
     var runParseArticleUrl_bad_input = function(url, expectedData) {
-        it('fail not/bad article url - ' + url, function() {
+        it('fail not article url - ' + url, function() {
             var urlObj = NodeUrl.parse(url);
 
             var actualData = urldata.parseArticleUrl(urlObj);
