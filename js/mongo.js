@@ -75,7 +75,7 @@ exports.increaseValue = function (value, increase, callback) {
                 return;
             }
 
-            collection.update(
+            collection.updateOne(
                 {'_id': result.insertedId},
                 {$inc: {"value": increase}}
                 , function (err, item) {
