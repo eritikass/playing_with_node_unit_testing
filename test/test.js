@@ -11,6 +11,12 @@ describe('random-tests', function() {
         });
     });
 
+    describe('Random', function() {
+        it('this test will fail', function() {
+            assert.equal('one', 'two', 'yay faill...');
+        });
+    });
+
     describe('User', function() {
         describe('#save()', function() {
             it('should save without error (test callback)', function(done) {
