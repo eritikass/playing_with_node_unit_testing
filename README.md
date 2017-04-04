@@ -1,0 +1,3 @@
+just testing...
+
+[![Build Status](https://travis-ci.org/eritikass/playing_with_node_unit_testing.svg?branch=master)](https://travis-ci.org/eritikass/playing_with_node_unit_testing)
