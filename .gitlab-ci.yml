@@ -1,22 +1,12 @@
 stages:
-  - prepare
   - test
-
-cache:
-  key: "$CI_COMMIT_REF_NAME"
-  paths:
-  - node_modules
-
-npm:install:
-  stage: prepare
-  image: node
-  script:
-  - npm install
 
 npm:test:
   stage: test
   image: node
   services:
   - mongo
+  before_script:
+  - npm install
   script:
   - npm test
